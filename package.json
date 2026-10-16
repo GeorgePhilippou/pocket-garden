@@ -1,1 +1,10 @@
-{"name":"pocket-garden","private":true,"type":"module","scripts":{"test":"node --test tests/garden.test.mjs","dev":"python3 -m http.server 5173 --directory dist"}}
+{
+  "name": "pocket-garden",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "dev": "python3 -m http.server 5173 --directory dist",
+    "test:browser": "node tests/shelf-browser.cjs"
+  }
+}

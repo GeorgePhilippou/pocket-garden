@@ -1,41 +1,51 @@
-# Pocket Garden — prototype 04
+# A Little Windowsill — first game release
 
-A small browser garden companion, based on the approved pixel-art Pocket Garden concept.
+A small, personal shelf garden based on the user's plant arrangement and approved pixel-art concept. The artwork is the interface: three living plants, two small corner buttons, and little visitors at the window.
 
-## Normal use
+## Play
 
-The garden opens in compact mode (up to 560 × 480 CSS pixels), with most space given to the artwork. Drag the green header to move the panel within the page. The arrow in the header expands the panel to show the plant shelf and larger controls; the same button returns to compact mode. Neither mode invokes browser fullscreen.
+Tap a lower-shelf plant to water, gather new growth, rename it, or choose another plant. Swapped plants keep their growth and moisture in the nursery. If a chosen species is already on the shelf, the two plants exchange places. Plants never die; dry plants rest until watered. They continue growing between visits. Established foliage stays visible after gathering.
 
-- **Plant:** choose seeds, then tap an empty patch. The seed tray closes to leave the soil visible.
-- **Water:** give the whole pot a drink.
-- **Inspect:** tap a plant directly, or select it and use Inspect. Check moisture, progress, and collecting availability.
-- **Collect:** in the plant detail view, pick leaves, berries, flowers, or sprigs once mature. The plant stays in its pot and grows again.
-- **Collection:** view your gathered items and totals.
-- **Options (menu icon):** choose a theme, enable optional sounds, try +6 hours, or open a separate small browser window. Popup blocking and the browser's window/tab preferences apply. Dragging the native window uses its normal title bar. This is not an installed desktop app and does not provide always-on-top behavior.
+The **journal** button holds seven chapters, visitor discoveries, keepsakes and the plant catalogue. The **three-dot** button holds light, sound, motion, scene size, a separate browser window, and save export/import. There is no permanent toolbar or statistics sidebar. The little temple and green figurine also respond to taps.
 
-## Growth and collections
+The three initial plants loosely reflect the photo: peace lily, lime foliage and trailing green. The latter two are descriptive game names, not botanical identifications. Basil, lavender, strawberry and marigold remain available. The original user photograph is not included in the deployed application.
 
-| Plant | First crop | Repeat crop | Collected per crop |
-| --- | --- | --- | --- |
-| Basil | 12h | 6h | 3 leaves |
-| Marigold | 18h | 12h | 1 flower |
-| Lavender | 24h | 18h | 1 sprig |
-| Strawberry | 20h | 12h | 3 berries |
+## Growth and progression
 
-Moist soil enables growth; soil dries over 72 hours. Dry plants pause and never die. Growth continues between visits. Collected plants remain visually established while regrowing; they do not become seedlings. The +6 hour option advances the saved clock rather than merely showing an animation. There is no plant removal, trading, currency, or cloud account.
+| Plant | First new growth | Further crop | Soil dries in | Keepsake |
+| --- | --- | --- | --- | --- |
+| Peace lily | 12h | 18h | 72h | Ivory bloom |
+| Lime foliage | 8h | 10h | 60h | Leaf impression |
+| Trailing green | 10h | 12h | 84h | Little cutting |
+| Basil | 12h | 6h | 72h | Basil leaves |
+| Lavender | 24h | 18h | 96h | Lavender sprig |
+| Strawberry | 20h | 12h | 60h | Strawberries |
+| Marigold | 18h | 12h | 72h | Golden bloom |
 
-## Saved data
+These are game timings. One keepsake is added per gathering action; double claims are blocked until a new crop matures. The trailing plant starts ready to gather. A care action counts when moisture is below 95%, so repeated taps on a freshly watered plant do not farm progression.
 
-The existing `pocket-garden-v1` localStorage key is retained. Old saves gain zeroed collection totals without changing their plants, growth, moisture, theme or clock offset. Expanded mode is not persisted: each visit starts compact. Collections and garden state persist on the same browser, device and origin. A separate window shares localStorage and receives storage updates from the main window. Data does not sync between devices, or between preview and production origins. Clearing site data clears the garden.
+- **Moth:** available at dusk/night from the start. Tap to observe.
+- **Ladybird:** appears after tending two different plant types.
+- **Evening fox:** appears outside at dusk/night after observing the moth and making three meaningful care actions.
+- Visitors return after a 20-minute cooldown. Discoveries persist; repeat visits do not claim new journal pages.
+- Completing three journal chapters lights the small string of lights. Seven chapters cover care, gathering, all three visitors and collecting from three species.
 
-## Run and verify
+All species are freely available for personal arrangements. No currency, buying, pressure timer or punishment is used. Window light is chosen in settings, not a live-weather feed. “Preview six hours passing” is tucked into the settings details and advances the saved game clock.
 
-No installation or build is needed. `npm run dev` serves http://127.0.0.1:5173. `npm test` checks first growth, paused growth, clock behavior, legacy collection initialization, collecting, repeat-harvest protection and species-specific regrowth. `node --check dist/app.js` checks entry syntax.
+## Saved progress and backup
 
-`node tests/browser.cjs` uses the desktop session's installed Playwright runtime and Chrome. It checks seven viewport sizes in both compact and expanded modes, bounded dragging, seed selection, direct plant inspection, collecting and persistence, regrowth visuals, themes and the user-triggered separate window. `node tests/placement.cjs` checks 432 rendered plant placements across six viewport sizes, two layouts, three themes and four stages. These scripts reference a machine-specific runtime path; adapt it on another computer. This is browser viewport testing, not physical iPad or Safari validation. Screenshots are in ignored `artifacts/`.
+The new game uses `pocket-garden-shelf-v1` with a version-2 schema. On the first visit it reads the old `pocket-garden-v1` save without writing to or deleting it. Old plants enter the nursery with their growth and moisture preserved. The complete old save, including collections, is retained in the new journal's legacy section and in exported backups.
 
-## Artwork and implementation
+Saves are local to this browser, device and origin. They do not automatically sync across devices. **Save a copy** exports JSON; **Restore a saved copy** imports a validated shelf save. Invalid imports leave the current game unchanged. A separate same-origin window receives storage updates. This is browser hosting, not an installed always-on-top desktop app.
 
-Original generated pixel-art backgrounds and the transparent plant atlas remain in `dist/assets/`. Measured per-sprite bounds and stem tips in `dist/sprites.js` isolate each plant with SVG view boxes and anchor roots to the same soil baseline. Species and growth stages retain their aspect ratio. The scene, sidebar, inspection and collection reuse the same sprite system. Theme backgrounds share the planter layout.
+## Artwork
 
-CSS builds the frame and controls; locally bundled Press Start 2P supplies pixel lettering. The font is by CodeMan38 under SIL Open Font License 1.1, included beside the font. No remote fonts or image requests are needed. The original asset prompt set and built-in image-generation provenance are in `ART_DIRECTION.md`.
+`art/approved-shelf-concept.png` preserves the approved concept with the corrected single-face creeper. The deployed game uses `dist/assets/shelf/room.png` for scenery and `dist/assets/shelf/foliage.png` for independently interactive foliage. Those layers were prepared with the built-in image-generation tool using the approved concept as a reference. Pixel visitors and the decorative flower are code-native SVG sprites. Existing herbs use the original plant atlas. `ART_DIRECTION.md` records the prompt set and asset paths.
+
+The scene retains a 4:3 aspect ratio on every viewport. Its default width is at most 720 CSS pixels, with a larger view available. The app uses locally bundled Press Start 2P under SIL Open Font License 1.1; the license remains in `dist/assets/FONT-LICENSE.txt`.
+
+## Develop and verify
+
+`npm run dev` starts a buildless static preview on port 5173. No dependency installation is required for the app. `npm test` runs 14 model tests for both legacy and shelf mechanics. `npm run test:browser` uses the desktop-session Playwright package and installed Chrome; adapt the machine-specific runtime path on another computer.
+
+The shelf browser test exercises watering, gathering, regrowth, all visitor discoveries, milestone lights, plant swaps, safe renaming, journal pages, export/import, invalid-import rejection, preferences, reload persistence, old-save migration and six viewport sizes. Screenshots and test downloads go into ignored `artifacts/`. Physical iPad and Safari testing have not been performed. Older browser/placement scripts cover the retired prototype and are retained as historical verification helpers; the active browser entrypoint is `tests/shelf-browser.cjs`.
