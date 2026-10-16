@@ -1,0 +1,8 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createGarden,advanceGarden,plantSeed,waterGarden} from '../dist/garden.js';
+const hour=3600000;
+test('new seed grows while away and survives a save/reload',()=>{let g=createGarden(100);assert.equal(plantSeed(g,2,'basil',100),true);g=JSON.parse(JSON.stringify(g));advanceGarden(g,100+6*hour);assert.equal(g.plots[2].growth,.5);assert.ok(g.plots[2].water<.7);advanceGarden(g,100+12*hour);assert.equal(g.plots[2].growth,1);});
+test('growth pauses when dry and watering resumes it',()=>{const g=createGarden(0);plantSeed(g,2,'lavender',0);g.plots[2].water=1/72;advanceGarden(g,12*hour);assert.ok(Math.abs(g.plots[2].growth-1/24)<1e-10);assert.equal(g.plots[2].water,0);advanceGarden(g,24*hour);assert.ok(Math.abs(g.plots[2].growth-1/24)<1e-10);waterGarden(g);advanceGarden(g,30*hour);assert.ok(Math.abs(g.plots[2].growth-7/24)<1e-10);});
+test('rejects replacing occupied spots and invalid seeds; backward clock cannot reverse growth',()=>{const g=createGarden(100);assert.equal(plantSeed(g,0,'lavender',100),false);assert.equal(plantSeed(g,2,'bad',100),false);assert.equal(plantSeed(g,7,'basil',100),false);const before=JSON.stringify(g);advanceGarden(g,0);assert.equal(JSON.stringify(g),before);});
+test('large absence caps growth and moisture; no double counting at reload',()=>{const g=createGarden(0);plantSeed(g,2,'strawberry',0);advanceGarden(g,10000*hour);assert.equal(g.plots[2].growth,1);assert.equal(g.plots[2].water,0);const before=JSON.stringify(g);advanceGarden(g,10000*hour);assert.equal(JSON.stringify(g),before);});
