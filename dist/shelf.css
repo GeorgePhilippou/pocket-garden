@@ -29,3 +29,15 @@
 
 /* Ambient scene: one integrated painting, no separate plant or pot layers. */
 .scenery{z-index:-2}.ambient-visitor{animation:none!important;rotate:none!important;transition:none;will-change:left,top;z-index:3}.ambient-visitor svg{pointer-events:none}.ambient-visitor.fox{min-width:24px;min-height:22px;width:6%;height:5%;z-index:1}.ambient-visitor.caterpillar{width:6%;height:5%}.ambient-visitor.ladybird{width:4.8%;height:5.5%}.scene-actions{z-index:8}.secret{z-index:2}.album-card.locked .critter-art{filter:brightness(.4) opacity(.35)}
+
+/* Quiet controls retain a generous target on touchscreens and reappear on focus. */
+.scene-actions button{width:44px;height:44px;display:grid;place-items:center;background:#263f2bc7;border-color:#9a986eaa;box-shadow:inset 1px 1px #72865d77,1px 1px #152d2480;transition:background .2s,border-color .2s}
+.scene-actions button:hover,.scene-actions button:focus-visible{background:#314e35;border-color:#e2cb89}
+.scene-actions svg{width:25px;height:25px}
+@media(hover:hover) and (pointer:fine){.scene-actions{opacity:.28;transition:opacity .4s}.scene:hover .scene-actions,.scene:focus-within .scene-actions{opacity:1}}
+.ambient-visitor.moth .critter-art{animation:soft-flutter 1.8s ease-in-out infinite}
+.ambient-visitor.bee .critter-art{animation:soft-flutter .8s ease-in-out infinite}
+.ambient-visitor.wasp .critter-art{animation:soft-flutter 1.1s ease-in-out infinite}
+@keyframes soft-flutter{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-1px) rotate(3deg)}}
+@media(prefers-reduced-motion:reduce){.ambient-visitor .critter-art{animation:none!important}}
+@media(max-width:500px){.scene-actions{bottom:1%;right:1%;gap:3px}.scene-actions button{width:44px;height:44px}.scene-actions svg{width:23px;height:23px}.setting-row{flex-wrap:wrap;gap:8px}.setting-row>span{flex:1;min-width:110px}}

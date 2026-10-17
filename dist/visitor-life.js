@@ -9,7 +9,13 @@ export function makeVisitorLife(random=Math.random,start=0){
  function choose(type,pool){let i=Math.floor(random()*pool.length);if(i===lastSite[type])i=(i+1+Math.floor(random()*(pool.length-1)))%pool.length;lastSite[type]=i;return {...pool[i]};}
  function allowed(type,light){return type==='moth'||type==='fox'?light!=='day':type==='bee'||type==='wasp'?light!=='night':true;}
  function spawn(type,time){const flying=FLYERS.includes(type);const p=type==='fox'?choose(type+'-arrival',[{x:39,y:48},{x:42,y:47},{x:40,y:52}]):choose(type+'-arrival',flying?AIR_SITES:LEAF_SITES);let path=[p];
-  if(flying){for(let i=0;i<4;i++){let q=choose(type+'-route',AIR_SITES);if(Math.hypot(q.x-path.at(-1).x,q.y-path.at(-1).y)<12)q={x:Math.min(85,q.x+17),y:Math.max(6,q.y-12)};path.push({x:Math.max(6,Math.min(85,q.x+range(-2,2))),y:Math.max(5,Math.min(79,q.y+range(-2,2)))});}}
+  if(flying){
+   // Small connected arcs: each visit explores a neighbourhood rather than zigzagging across the painting.
+   const heading=range(0,Math.PI*2),span=type==='moth'?16:22,bend=range(-7,7);
+   for(let i=1;i<=8;i++){const t=i/8,along=span*t,cross=Math.sin(t*Math.PI*2)*bend;
+    path.push({x:Math.max(6,Math.min(85,p.x+Math.cos(heading)*along-Math.sin(heading)*cross)),y:Math.max(5,Math.min(79,p.y+Math.sin(heading)*along+Math.cos(heading)*cross))});
+   }
+  }
   else if(type==='fox')path=[p,{x:p.x+1,y:p.y},p];
   else path=[p,{x:p.x+.5,y:p.y-.2},p];
   const duration=flying?range(24000,38000):type==='fox'?range(15000,21000):range(32000,48000);

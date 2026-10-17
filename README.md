@@ -9,12 +9,12 @@ Open the page and enjoy the window. Plant clicks do not open panels, display inf
 Visitors arrive and leave on their own:
 
 - Moths fly at dusk/night; bees and wasps visit in day/dusk.
-- Flying insects use multi-stop routes across the scene. Each subsequent arrival chooses a different starting location for that visitor type. At most two flyers share the scene.
+- Flying insects use short connected arcs with a gentle flutter, exploring different parts of the scene. Each subsequent arrival chooses a different starting location for that visitor type. At most two flyers share the scene.
 - Caterpillars and ladybugs start at selected painted-leaf locations and move only slightly along the foliage. They do not follow flight routes.
 - The fox occasionally passes through the window area at dusk/night.
 - Clicking a visitor sends it away without an information popup. Sightings are recorded automatically after a short visible visit.
 
-The journal is optional: Visitors, Notebook and Earlier garden. The corner menu holds light, sound, visitor movement, scene size, a separate small browser window, and save export/import. No watering or harvesting is needed to attract any visitor. Reduced motion keeps visits at varied arrival sites while disabling their travel animations.
+The journal is optional: Visitors, Notebook and Earlier garden. The corner menu holds light, sound, visitor movement, scene size, a separate small browser window, and save export/import. No watering or harvesting is needed to attract any visitor. Reduced motion keeps visits at varied arrival sites while disabling their travel and flutter animations, including when the system preference changes while open. Pointer controls fade into the corner when idle; touch and keyboard controls remain visible, with 44px targets.
 
 ## Reference and artwork
 
