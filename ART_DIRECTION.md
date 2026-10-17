@@ -26,3 +26,17 @@ Transparent 3:1 atlas with three square cells. Left: dark broad-leaf peace-lily 
 ## Interactive sprites
 
 Moth, ladybird and fox are original code-native rectangle patterns in `shelf-art.js`. The temple light switch, decorative flower, subtle leaf motion, observation targets and two corner controls are implemented in code. The shelf image stays in proportion and visitors are layered appropriately around the foliage.
+
+# Plant grounding and cute insect refinement
+
+Built-in image-generation mode was used for both new raster assets, with the approved shelf concept as the style reference. The original plant photo was also used as the LEGO-flower reference.
+
+## `dist/assets/shelf/lego-flower.png`
+
+Prompt: recreate only the static LEGO orange flower arrangement between the lower peace lily and lime plant. Two curled-petal orange flower heads, black segmented stems and angular dark leaf pieces, jade vase and brown base. Preserve the approved scene's warm pixel style. Isolate on genuine transparency; no other objects or scenery. Runtime SVG displays only the flower-and-stem portion above the existing scene's jade vase; the vase is not duplicated.
+
+## `dist/assets/shelf/insects.png`
+
+Prompt: cohesive transparent 3-column, 2-row sprite atlas, upper row moth/bee/wasp, lower row ladybug/caterpillar/empty. A cream moth with patterned wings, eye spots and feathery antennae; a fluffy round golden bee with brown bands and pale wings; a slimmer yellow-brown wasp with narrow waist and longer wings; a coral-red spotted ladybug; a plump segmented green caterpillar. Friendly eye highlights, forest-green outlines, warm light and deliberate square pixel clusters. No plants, text, ground or panels. `INSECTS` in `shelf-art.js` uses measured display crops that include complete silhouettes and exclude neighbouring sprites.
+
+Plant roots were corrected in code rather than regenerating foliage. Every measured stem is anchored inside the soil, and original front-rim pixels are composited over its base. The background and the three living pots retain their approved placement.

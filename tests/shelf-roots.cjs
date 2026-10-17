@@ -1,0 +1,11 @@
+const {chromium}=require('/Users/georgephilippou/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');const assert=require('node:assert/strict');
+(async()=>{const browser=await chromium.launch({headless:true,channel:'chrome'}),page=await browser.newPage();await page.goto('http://127.0.0.1:5173');let checks=0;
+for(const [label,width,height] of [['desktop',1440,1000],['small',740,600],['ipad-landscape',1024,768],['ipad-portrait',768,1024],['phone',390,844],['short',844,390]]){
+ await page.setViewportSize({width,height});
+ for(const light of ['dusk','day','night']){
+  await page.locator('#menu-button').click();await page.locator('#light-choice').selectOption(light);await page.keyboard.press('Escape');
+  const results=await page.evaluate(async()=>{const {FOLIAGE,POTS}=await import('/shelf-art.js?v=6');const scene=document.querySelector('#scene'),r=scene.getBoundingClientRect(),clip=document.querySelector('#pot-front-clip path');return [...document.querySelectorAll('.plant')].map((button,i)=>{const svg=button.querySelector('svg'),s=FOLIAGE[button.dataset.type],pt=new DOMPoint(...s.root).matrixTransform(svg.getScreenCTM()),target=POTS[i];return {dx:Math.abs(pt.x-(r.left+scene.clientLeft+target.x/1448*scene.clientWidth)),dy:Math.abs(pt.y-(r.top+scene.clientTop+target.y/1086*scene.clientHeight)),covered:clip.isPointInFill(new DOMPoint(target.x,target.y)),front:+getComputedStyle(document.querySelector('#pot-fronts')).zIndex>+getComputedStyle(document.querySelector('#plants')).zIndex};});});
+  for(const r of results){assert.ok(r.dx<1&&r.dy<1,`${label}/${light}: actual SVG stem is at soil anchor ${JSON.stringify(r)}`);assert.ok(r.covered&&r.front,`${label}: stem is buried behind front rim`);checks++;}
+ }
+}
+await page.setViewportSize({width:1120,height:900});await page.locator('#menu-button').click();await page.locator('#light-choice').selectOption('dusk');await page.keyboard.press('Escape');await page.locator('.shelf-shell').screenshot({path:'artifacts/rooted-scene.png'});await browser.close();console.log(`PASS: ${checks} rendered stem anchors at measured soil points and behind pot rims, across 6 sizes and 3 light settings.`);})().catch(e=>{console.error(e);process.exit(1)});

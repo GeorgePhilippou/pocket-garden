@@ -3,3 +3,26 @@
 #fox-window{position:absolute;inset:0;pointer-events:none;z-index:0}#fox-window .visitor{pointer-events:auto}#plants{z-index:1}#visitors{z-index:2}.plant>.plant-art{transform:translateX(-50%) scale(var(--scale,1))}.plant>.plant-art{animation:leaf-breath 9s ease-in-out infinite}.plant[data-slot="1"]>.plant-art{animation-delay:-3s}.plant[data-slot="2"]>.plant-art{animation-delay:-6s}@keyframes leaf-breath{0%,100%{rotate:0deg}50%{rotate:.5deg}}
 
 .toy-flower{position:absolute;left:35.5%;bottom:19.7%;width:8.5%;height:18%;font-size:0;text-shadow:none}.toy-flower svg{height:100%;width:100%;shape-rendering:crispEdges}.scene-actions button{overflow:hidden}
+
+/* Roots use measured atlas stem points; front-rim pixels conceal their planted bases. */
+.plant>.rooted-art{left:50%;top:100%;bottom:auto;width:100%;height:auto;animation:none;rotate:none;filter:none}
+.plant>.rooted-art>svg{width:100%;height:100%;aspect-ratio:auto;display:block}
+#pot-fronts{position:absolute;inset:0;pointer-events:none;z-index:3}
+.pot-fronts{display:block;width:100%;height:100%;image-rendering:pixelated}
+.scene[data-light=day] .pot-fronts{filter:brightness(1.18) saturate(.85)}
+.scene[data-light=night] .pot-fronts{filter:brightness(.76) saturate(.9)}
+.plant-name{top:62%}
+.lego-flower{position:absolute;left:39.2%;bottom:21.27%;width:12%;aspect-ratio:735/743;transform:translateX(-53%);pointer-events:none;z-index:3}
+.lego-flower svg{width:100%;height:100%;display:block;image-rendering:pixelated}
+#visitors{z-index:4}
+.visitor{min-width:30px;min-height:30px;filter:drop-shadow(1px 2px #142c2250)}
+.visitor svg{overflow:hidden;image-rendering:pixelated;shape-rendering:crispEdges}
+.visitor.moth{left:60%;top:8%;width:8%;height:9%;animation:flutter 8s steps(16) infinite}
+.visitor.bee{left:42%;top:47%;width:7.5%;height:8.5%;animation:bee-hover 6s steps(12) infinite}
+.visitor.wasp{left:77%;top:46%;width:7.3%;height:8.2%;animation:wasp-hover 9s steps(15) infinite}
+.visitor.ladybird{left:21%;top:60%;width:5.6%;height:6.5%;rotate:-10deg}
+.visitor.caterpillar{left:56%;top:63%;width:7%;height:5.5%;animation:leaf-crawl 14s steps(14) infinite}
+.album-card .critter-art{width:105px;height:86px;max-width:100%;image-rendering:pixelated}
+@keyframes bee-hover{0%,100%{translate:0 0;rotate:-3deg}50%{translate:4px -5px;rotate:4deg}}
+@keyframes wasp-hover{0%,100%{translate:0 0}50%{translate:-5px 3px}}
+@keyframes leaf-crawl{0%,100%{translate:0 0}50%{translate:4px -1px}}
