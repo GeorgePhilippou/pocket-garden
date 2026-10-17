@@ -41,3 +41,10 @@
 @keyframes soft-flutter{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-1px) rotate(3deg)}}
 @media(prefers-reduced-motion:reduce){.ambient-visitor .critter-art{animation:none!important}}
 @media(max-width:500px){.scene-actions{bottom:1%;right:1%;gap:3px}.scene-actions button{width:44px;height:44px}.scene-actions svg{width:23px;height:23px}.setting-row{flex-wrap:wrap;gap:8px}.setting-row>span{flex:1;min-width:110px}}
+
+/* Invisible foliage outlines identify the illustrated plants without adding controls. */
+#plant-names{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+#plant-names polygon{fill:transparent;pointer-events:auto;cursor:default;outline:none}
+#plant-names polygon:focus-visible{stroke:#e8d7a1;stroke-width:.3;stroke-dasharray:1 1}
+#plant-tooltip{position:absolute;z-index:9;transform:translate(-50%,-100%);pointer-events:none;white-space:nowrap;padding:8px 10px;border:1px solid #acac78;background:#233c2eeb;color:#f4e6b9;box-shadow:2px 2px #13271d66;font:7px/1.5 var(--font);letter-spacing:.2px}
+@media(max-width:500px){#plant-tooltip{font-size:6px;padding:6px 8px}}

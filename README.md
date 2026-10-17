@@ -4,7 +4,7 @@ A quiet pixel-art interpretation of the user's own plant shelf. The approved per
 
 ## Normal use
 
-Open the page and enjoy the window. Plant clicks do not open panels, display information, change growth, or request watering. There are no plant statistics, harvesting controls, readiness sparkles, care requirements or chapter rewards in the active interface. Previously saved plants, growth and keepsakes are retained in the saved data.
+Open the page and enjoy the window. Hover a plant (or focus it with the keyboard) for a small name label: peace lily, English ivy, trailing plant, prayer plant or yucca. Plant clicks do not open panels, display information, change growth, or request watering. There are no plant statistics, harvesting controls, readiness sparkles, care requirements or chapter rewards in the active interface. Previously saved plants, growth and keepsakes are retained in the saved data.
 
 Visitors arrive and leave on their own:
 

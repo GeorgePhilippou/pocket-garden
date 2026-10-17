@@ -37,3 +37,16 @@ $('#panel-content').addEventListener('change',async e=>{if(e.target.id==='light-
 $('#temple').addEventListener('click',()=>{$('#scene').classList.toggle('temple-dim');chime();});$('#creeper').addEventListener('click',chime);
 window.addEventListener('storage',()=>{adopt();preferences();refreshMovement();});document.addEventListener('visibilitychange',()=>{if(!document.hidden){adopt();preferences();tick();}});window.addEventListener('pagehide',()=>{adopt();save();});document.addEventListener('keydown',e=>{if(e.altKey||e.ctrlKey||e.metaKey||$('#panel').open)return;if(e.key.toLowerCase()==='j')journal();});
 preferences();save();tick();setInterval(tick,250);
+
+// Names only: artwork-aligned hit areas never open a plant panel.
+const plantTooltip=$('#plant-tooltip');
+function hidePlantName(){plantTooltip.hidden=true;}
+function showPlantName(target){plantTooltip.textContent=target.dataset.name;plantTooltip.style.left=`${target.dataset.labelX}%`;plantTooltip.style.top=`${target.dataset.labelY}%`;plantTooltip.hidden=false;}
+for(const target of document.querySelectorAll('#plant-names polygon')){
+ target.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch')showPlantName(target);});
+ target.addEventListener('pointerleave',hidePlantName);
+ target.addEventListener('focus',()=>showPlantName(target));target.addEventListener('blur',hidePlantName);
+ target.addEventListener('keydown',e=>{if(e.key==='Escape'){hidePlantName();target.blur();}});
+}
+$('#scene').addEventListener('pointerdown',e=>{if(!e.target.closest('#plant-names'))hidePlantName();});
+$('#panel').addEventListener('close',hidePlantName);
