@@ -26,3 +26,6 @@
 @keyframes bee-hover{0%,100%{translate:0 0;rotate:-3deg}50%{translate:4px -5px;rotate:4deg}}
 @keyframes wasp-hover{0%,100%{translate:0 0}50%{translate:-5px 3px}}
 @keyframes leaf-crawl{0%,100%{translate:0 0}50%{translate:4px -1px}}
+
+/* Ambient scene: one integrated painting, no separate plant or pot layers. */
+.scenery{z-index:-2}.ambient-visitor{animation:none!important;rotate:none!important;transition:none;will-change:left,top;z-index:3}.ambient-visitor svg{pointer-events:none}.ambient-visitor.fox{min-width:24px;min-height:22px;width:6%;height:5%;z-index:1}.ambient-visitor.caterpillar{width:6%;height:5%}.ambient-visitor.ladybird{width:4.8%;height:5.5%}.scene-actions{z-index:8}.secret{z-index:2}.album-card.locked .critter-art{filter:brightness(.4) opacity(.35)}

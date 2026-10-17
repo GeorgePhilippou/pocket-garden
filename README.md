@@ -1,60 +1,35 @@
-# A Little Windowsill — rooted plants and illustrated visitors
+# A Little Windowsill — a living scene
 
-A small, personal shelf garden based on the user's plant arrangement and approved pixel-art concept. The artwork is the interface: three living plants, two small corner buttons, and little visitors at the window.
+A quiet pixel-art interpretation of the user's own plant shelf. The approved personal arrangement is drawn as a single scene: leaves, stems, soil, pots and the static orange LEGO flower are integrated. There are no separate live foliage overlays, root transforms or pot-rim masks in the current renderer.
 
-## Play
+## Normal use
 
-Tap one of the three living plants to water, gather new growth, or rename it. Alternative plant selection is deferred until the user chooses the new plants. Previous nursery entries and arrangements remain in the save. The orange LEGO flower between the left and centre living pots is fixed decoration, with no growth, watering, gathering, or plant-selection controls. Plants never die; dry plants rest until watered. They continue growing between visits. Established foliage stays visible after gathering.
+Open the page and enjoy the window. Plant clicks do not open panels, display information, change growth, or request watering. There are no plant statistics, harvesting controls, readiness sparkles, care requirements or chapter rewards in the active interface. Previously saved plants, growth and keepsakes are retained in the saved data.
 
-The **journal** button holds ten chapters, visitor discoveries, keepsakes and the plant catalogue. The **three-dot** button holds light, sound, motion, scene size, a separate browser window, and save export/import. There is no permanent toolbar or statistics sidebar. The little temple and green figurine also respond to taps.
+Visitors arrive and leave on their own:
 
-The three initial plants loosely reflect the photo: peace lily, lime foliage and trailing green. The latter two are descriptive game names, not botanical identifications. Earlier basil, lavender, strawberry and marigold progress remains in the save; replacement choices are not currently exposed. The original user photograph is not included in the deployed application.
+- Moths fly at dusk/night; bees and wasps visit in day/dusk.
+- Flying insects use multi-stop routes across the scene. Each subsequent arrival chooses a different starting location for that visitor type. At most two flyers share the scene.
+- Caterpillars and ladybugs start at selected painted-leaf locations and move only slightly along the foliage. They do not follow flight routes.
+- The fox occasionally passes through the window area at dusk/night.
+- Clicking a visitor sends it away without an information popup. Sightings are recorded automatically after a short visible visit.
 
-## Growth and progression
+The journal is optional: Visitors, Notebook and Earlier garden. The corner menu holds light, sound, visitor movement, scene size, a separate small browser window, and save export/import. No watering or harvesting is needed to attract any visitor. Reduced motion keeps visits at varied arrival sites while disabling their travel animations.
 
-| Plant | First new growth | Further crop | Soil dries in | Keepsake |
-| --- | --- | --- | --- | --- |
-| Peace lily | 12h | 18h | 72h | Ivory bloom |
-| Lime foliage | 8h | 10h | 60h | Leaf impression |
-| Trailing green | 10h | 12h | 84h | Little cutting |
-| Basil | 12h | 6h | 72h | Basil leaves |
-| Lavender | 24h | 18h | 96h | Lavender sprig |
-| Strawberry | 20h | 12h | 60h | Strawberries |
-| Marigold | 18h | 12h | 72h | Golden bloom |
+## Reference and artwork
 
-These are game timings. One keepsake is added per gathering action; double claims are blocked until a new crop matures. The trailing plant starts ready to gather. A care action counts when moisture is below 95%, so repeated taps on a freshly watered plant do not farm progression.
+`art/approved-shelf-concept.png` retains the approved concept. `dist/assets/shelf/whole-room.png` is a built-in image-generation edit of that concept: only the baked-in moth and two painted UI icons were removed. All illustrated plants, pots, toy display, one-face creeper and orange LEGO flower remain integrated. The original photograph is not shipped.
 
-- **Moth:** available at dusk/night from the start. Tap to observe.
-- **Ladybug:** appears after tending two different plant types.
-- **Bee:** appears after one meaningful care action, at day/dusk.
-- **Wasp:** appears after gathering a keepsake and making two care actions, at day/dusk.
-- **Caterpillar:** appears after tending two different plant types.
-- **Evening fox:** appears outside at dusk/night after observing the moth and making three meaningful care actions.
-- Visitors return after a 20-minute cooldown. Discoveries persist; repeat visits do not claim new journal pages.
-- Completing three journal chapters lights the small string of lights. Ten chapters cover care, gathering, all six visitors and collecting from three species.
+The detailed insects remain in `dist/assets/shelf/insects.png`; the fox is a code-native sprite. `visitor-life.js` handles arrival sites, routes, bounded leaf crawling, lifetimes, departures and return delays. `ambient-app.js` handles the display, optional journal/settings and saved data. Runtime assets and fonts are local; there are no external image/font requests. Press Start 2P's SIL OFL license is included in `dist/assets/FONT-LICENSE.txt`. Prompt provenance is in `ART_DIRECTION.md`.
 
-All species are freely available for personal arrangements. No currency, buying, pressure timer or punishment is used. Window light is chosen in settings, not a live-weather feed. “Preview six hours passing” is tucked into the settings details and advances the saved game clock.
+## Saves
 
-## Saved progress and backup
+The existing `pocket-garden-shelf-v1` version-2 save is retained. Plants, slots, growth, moisture, collections, previous observations and legacy save contents are preserved. The ambient renderer does not advance, harvest or reset old plants. New visitor observations are added to the journal. The earlier `pocket-garden-v1` key is read for first-time migration and left unchanged.
 
-The new game uses `pocket-garden-shelf-v1` with a version-2 schema. On the first visit it reads the old `pocket-garden-v1` save without writing to or deleting it. Old plants enter the nursery with their growth and moisture preserved. The complete old save, including collections, is retained in the new journal's legacy section and in exported backups.
+Data stays in this browser/device/origin, without automatic cross-device sync. Save a copy exports JSON. Restore accepts a validated saved garden and leaves the current save unchanged on invalid input. A separate same-origin window receives storage updates. This is a browser scene, not an installed always-on-top application.
 
-Saves are local to this browser, device and origin. They do not automatically sync across devices. **Save a copy** exports JSON; **Restore a saved copy** imports a validated shelf save. Invalid imports leave the current game unchanged. A separate same-origin window receives storage updates. This is browser hosting, not an installed always-on-top desktop app.
+## Development and verification
 
-## Artwork
+`npm run dev` serves the buildless app on port 5173. No app dependency installation is needed. `npm test` runs 19 tests, including retained earlier game mechanics and current visitor-life tests. `npm run test:browser` runs `tests/ambient-browser.cjs` with this desktop's bundled Playwright and installed Chrome; adapt the machine-specific runtime path elsewhere.
 
-`art/approved-shelf-concept.png` preserves the approved concept with the corrected single-face creeper. The deployed game uses `dist/assets/shelf/room.png` for scenery and `dist/assets/shelf/foliage.png` for independently interactive foliage. Those layers were prepared with the built-in image-generation tool using the approved concept as a reference. The moth, bee, wasp, ladybug and caterpillar share a newly generated transparent pixel-art atlas. The static LEGO flower uses a separate reference-based cutout above the existing jade vase. The fox remains a code-native sprite. Existing herbs use the original plant atlas. `ART_DIRECTION.md` records the prompt set and asset paths.
-
-The scene retains a 4:3 aspect ratio on every viewport. Its default width is at most 720 CSS pixels, with a larger view available. The app uses locally bundled Press Start 2P under SIL Open Font License 1.1; the license remains in `dist/assets/FONT-LICENSE.txt`.
-
-## Develop and verify
-
-`npm run dev` starts a buildless static preview on port 5173. No dependency installation is required for the app. `npm test` runs 15 model tests for both legacy and shelf mechanics. `npm run test:browser` uses the desktop-session Playwright package and installed Chrome; adapt the machine-specific runtime path on another computer.
-
-The shelf browser test exercises watering, gathering, regrowth, all six visitor discoveries, milestone lights, exactly three living pots, the non-interactive LEGO ornament, safe renaming, journal pages, export/import, invalid-import rejection, preferences, reload persistence, old-save migration and six viewport sizes. Screenshots and test downloads go into ignored `artifacts/`. Physical iPad and Safari testing have not been performed. Older browser/placement scripts cover the retired prototype and are retained as historical verification helpers; the active browser entrypoint is `tests/shelf-browser.cjs`.
-
-## Verified plant compositing
-
-`FOLIAGE` in `shelf-art.js` records measured stem points in the transparent atlas. `POTS` records their scene anchors in the background's 1448 × 1086 coordinate system. The plant SVG transforms map each measured stem onto its own pot anchor; growth no longer scales or moves the roots. A foreground SVG redraws only the front pot surfaces from the identical background image, masking the lower stalks so they enter the soil. The static LEGO flower occupies no plant slot.
-
-`node tests/shelf-roots.cjs` verifies actual rendered SVG stem coordinates and front-rim coverage in 54 combinations of plant, viewport and light setting. The full browser flow checks interactions and saved progress. Screenshots were inspected at normal scale. This does not constitute physical iPad or Safari validation.
+Current tests verify unified scenery, absence of plant click panels and controls, flight routes with multiple positions, varied return locations, leaf-bound crawling, automatic sightings without care, a maximum of two simultaneous flyers, preferences, reduced motion, saved progress, exports/imports and six viewport sizes. Screenshots were visually inspected. Physical iPad and Safari testing have not been performed. Earlier browser/root-placement scripts remain historical helpers and are not the active renderer's verification entrypoint.

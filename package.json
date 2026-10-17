@@ -5,6 +5,6 @@
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "dev": "python3 -m http.server 5173 --directory dist",
-    "test:browser": "node tests/shelf-browser.cjs"
+    "test:browser": "node tests/ambient-browser.cjs"
   }
 }

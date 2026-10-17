@@ -40,3 +40,9 @@ Prompt: recreate only the static LEGO orange flower arrangement between the lowe
 Prompt: cohesive transparent 3-column, 2-row sprite atlas, upper row moth/bee/wasp, lower row ladybug/caterpillar/empty. A cream moth with patterned wings, eye spots and feathery antennae; a fluffy round golden bee with brown bands and pale wings; a slimmer yellow-brown wasp with narrow waist and longer wings; a coral-red spotted ladybug; a plump segmented green caterpillar. Friendly eye highlights, forest-green outlines, warm light and deliberate square pixel clusters. No plants, text, ground or panels. `INSECTS` in `shelf-art.js` uses measured display crops that include complete silhouettes and exclude neighbouring sprites.
 
 Plant roots were corrected in code rather than regenerating foliage. Every measured stem is anchored inside the soil, and original front-rim pixels are composited over its base. The background and the three living pots retain their approved placement.
+
+# Ambient unified scene refinement
+
+`dist/assets/shelf/whole-room.png` was prepared using the built-in image-generation tool with `art/approved-shelf-concept.png` as the editing reference. Prompt: preserve the entire approved 4:3 scene, all living foliage and stems, every pot, the orange LEGO flower/jade vase, shelf, display, curtains and single-face creeper. Remove only the pale moth near the upper window and the two painted journal/menu icons at the lower right. Reconstruct the background at those points; no plant or pot redesign. Keep plants and containers as integrated painted objects.
+
+The active scene now displays this complete painting instead of compositing independently positioned plant sprites. This restores the approved planting composition and the static LEGO ornament together. The insect atlas is reused. Visitor paths, arrival variation, leaf-restricted crawling and optional observation logging are code-driven in `visitor-life.js` and `ambient-app.js`.
