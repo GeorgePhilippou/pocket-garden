@@ -16,10 +16,11 @@ export const VISITORS={
  caterpillar:{name:'Little leaf crawler',note:'Inches along a prayer plant leaf, stops, then turns for the journey back.',hint:'Tend two kinds of plant. Look closely at the lime leaves.'},
  fox:{name:'The evening fox',note:'A quiet neighbour, passing outside your window.',hint:'Meet the moth and tend three times. Look outside at dusk or night.'}
 };
+export const ACTIVE_VISITORS=['moth','bee','wasp','ladybird','caterpillar'];
 export function createShelf(time=Date.now(),legacy=null){
  const plants={peace:{id:'peace',type:'peace',water:.78,growth:.84,cycles:0},lime:{id:'lime',type:'lime',water:.72,growth:.7,cycles:0},trailing:{id:'trailing',type:'trailing',water:.8,growth:1,cycles:0}};
  if(legacy?.plots)legacy.plots.forEach((p,i)=>{if(p&&CATALOG[p.type])plants[`legacy-${i}`]={id:`legacy-${i}`,type:p.type,water:Math.min(1,Math.max(0,p.water||0)),growth:Math.min(1,Math.max(0,p.growth||0)),cycles:p.regrowing?1:0};});
- return {version:2,startedAt:time,updatedAt:time,offset:0,revision:0,plants,slots:['peace','lime','trailing'],collection:{},discoveries:{},visits:{},care:0,tendedTypes:[],gathered:0,light:'dusk',sound:false,motion:true,onboarded:false,events:[],legacy:legacy||null};
+ return {version:2,startedAt:time,updatedAt:time,offset:0,revision:0,plants,slots:['peace','lime','trailing'],collection:{},discoveries:{},visits:{},care:0,tendedTypes:[],gathered:0,light:'dusk',templeLights:true,sound:false,motion:true,onboarded:false,events:[],legacy:legacy||null};
 }
 export function loadShelf(raw,time=Date.now(),legacy=null,strict=false){
  try{
@@ -29,6 +30,8 @@ export function loadShelf(raw,time=Date.now(),legacy=null,strict=false){
  if(!['startedAt','updatedAt','offset','revision','care','gathered'].every(k=>number(s[k]))||!['day','dusk','night'].includes(s.light)||typeof s.sound!=='boolean'||typeof s.motion!=='boolean')throw Error('Invalid preferences');
  if(!plain(s.collection)||!Object.entries(s.collection).every(([type,n])=>CATALOG[type]&&number(n))||!plain(s.discoveries)||!Object.entries(s.discoveries).every(([type,v])=>VISITORS[type]&&number(v?.time))||!plain(s.visits)||!Object.entries(s.visits).every(([type,t])=>VISITORS[type]&&number(t)))throw Error('Invalid journal');
  if(!Array.isArray(s.tendedTypes)||!s.tendedTypes.every(type=>CATALOG[type])||!Array.isArray(s.events)||s.events.length>40||!s.events.every(e=>typeof e.text==='string'&&e.text.length<=300&&number(e.time)))throw Error('Invalid history');
+ if(s.templeLights!==undefined&&typeof s.templeLights!=='boolean')throw Error('Invalid display lights');
+ s.templeLights ??= true;
  return s;
  }catch{return strict?null:createShelf(time,legacy);}
 }

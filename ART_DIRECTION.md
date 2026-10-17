@@ -50,3 +50,9 @@ The active scene now displays this complete painting instead of compositing inde
 ## Articulated visitors, 2026-10-17
 
 The approved integrated windowsill painting, plants, pots, LEGO flower and creeper remain unchanged. Live insect art is now authored directly in `dist/visitor-art.js` on a 32×32 SVG pixel grid, using dark green outlines, warm ochres/cream, red and leaf greens. Wings, legs, antennae and caterpillar body segments are independent vector groups with discrete pixel-style animation. No raster image generation or editing was used for this pass. The earlier atlas is retained as historical source. Scene motion and behaviour live separately in `dist/visitor-life.js`; perched sprites stay still rather than bobbing.
+
+## First-floor visitors and LEGO lighting, 2026-10-17
+
+Fox visits and the fox album card are removed from the active scene. Compatibility metadata remains so older saves can still be restored. The five insects now use softer silhouettes, larger sparkling eyes, small smiles and blush, with the existing articulated wing/leg motion preserved. These refinements are editable SVG source in `dist/visitor-art.js`.
+
+The built-in image-generation tool edited the approved scene into `dist/assets/shelf/lego-lights-off.png`, with the LEGO LED lights and their shelf glow off. The original lights-on painting stays the base image. The alternate is registered and clipped to the display area; the flat green dimming rectangle has been removed. The saved `templeLights` preference chooses the illustrated state. Exact prompt and asset provenance: `art/LEGO_LIGHTING_PROMPT.md`.
