@@ -9,11 +9,11 @@ export const CATALOG={
  marigold:{name:'Marigold',note:'A small burst of gold.',item:'Golden bloom',first:18,regrow:12,dry:72,sprite:1}
 };
 export const VISITORS={
- moth:{name:'Window moth',note:'Drawn to the warm little window. It was here from the beginning.',hint:'Look near the top of the window.'},
- ladybird:{name:'Little ladybug',note:'A little red gardener, resting among the leaves.',hint:'Give two plants a drink. Look among the leaves.'},
- bee:{name:'Little bumblebee',note:'A fuzzy golden visitor, stopping to explore the leaves.',hint:'Give a plant a drink, then look near the window in daylight or dusk.'},
- wasp:{name:'Golden wasp',note:'A slender striped explorer with delicate wings.',hint:'Gather a keepsake and tend twice. Watch the ivy in daylight or dusk.'},
- caterpillar:{name:'Little leaf crawler',note:'A soft green neighbour, taking the slow route.',hint:'Tend two kinds of plant. Look closely at the lime leaves.'},
+ moth:{name:'Window moth',note:'Circles the warm temple light, settles with folded wings, then returns outside.',hint:'Look near the top of the window.'},
+ ladybird:{name:'Little ladybug',note:'Walks along a leaf, pauses to rest, then explores a little further.',hint:'Give two plants a drink. Look among the leaves.'},
+ bee:{name:'Little bumblebee',note:'Inspects the peace lily flowers, rests for a moment, then flies on.',hint:'Give a plant a drink, then look near the window in daylight or dusk.'},
+ wasp:{name:'Golden wasp',note:'Flies in to explore the ivy, folds its wings, and heads back outside.',hint:'Gather a keepsake and tend twice. Watch the ivy in daylight or dusk.'},
+ caterpillar:{name:'Little leaf crawler',note:'Inches along a prayer plant leaf, stops, then turns for the journey back.',hint:'Tend two kinds of plant. Look closely at the lime leaves.'},
  fox:{name:'The evening fox',note:'A quiet neighbour, passing outside your window.',hint:'Meet the moth and tend three times. Look outside at dusk or night.'}
 };
 export function createShelf(time=Date.now(),legacy=null){
