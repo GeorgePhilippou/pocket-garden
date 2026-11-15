@@ -1,5 +1,7 @@
 # A Little Windowsill — a living scene
 
+Live at **https://georgephilippou.github.io/pocket-garden/**. Every push to `main` runs `npm test` and deploys `dist/` to GitHub Pages (`.github/workflows/pages.yml`).
+
 A quiet pixel-art interpretation of the user's own plant shelf. The approved personal arrangement is drawn as a single scene: leaves, stems, soil, pots and the static orange LEGO flower are integrated. There are no separate live foliage overlays, root transforms or pot-rim masks in the current renderer.
 
 ## Normal use
